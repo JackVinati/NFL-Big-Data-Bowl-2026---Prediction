@@ -231,9 +231,23 @@ class LSTMAttentionModel(nn.Module):
         )  # [batch, 1, hidden*directions]
 
         # Prepare decoder
-        # Use attended features + last hidden state
-        decoder_hidden = hidden
-        decoder_cell = cell
+        # Transform encoder hidden states to match decoder dimensions
+        # Encoder: [num_layers*num_directions, batch, hidden] = [6, batch, 256]
+        # Decoder: [num_layers, batch, hidden] = [2, batch, 256]
+
+        # Take last 2 layers from encoder (forward direction only)
+        if self.bidirectional:
+            # Reshape: [num_layers, num_directions, batch, hidden]
+            hidden = hidden.view(self.num_layers, self.num_directions, batch_size, self.hidden_size)
+            cell = cell.view(self.num_layers, self.num_directions, batch_size, self.hidden_size)
+
+            # Take forward direction from last 2 layers
+            decoder_hidden = hidden[-2:, 0, :, :].contiguous()  # [2, batch, hidden]
+            decoder_cell = cell[-2:, 0, :, :].contiguous()  # [2, batch, hidden]
+        else:
+            # Take last 2 layers
+            decoder_hidden = hidden[-2:]
+            decoder_cell = cell[-2:]
 
         # Start with last known position
         current_pos = input_seq[:, -1, :2]  # [batch, 2] (x_norm, y_norm)
