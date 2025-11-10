@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "analysis_date": "2025-11-10 15:16:52.410917",
+    "analysis_date": "2025-11-10 16:24:41.511110",
     "total_weeks": 18
   },
   "data_structure": {
@@ -46,57 +46,107 @@
       "x",
       "y",
       "week"
-    ]
+    ],
+    "input_dtypes": {
+      "game_id": "int64",
+      "play_id": "int64",
+      "player_to_predict": "bool",
+      "nfl_id": "int64",
+      "frame_id": "int64",
+      "play_direction": "object",
+      "absolute_yardline_number": "int64",
+      "player_name": "object",
+      "player_height": "object",
+      "player_weight": "int64",
+      "player_birth_date": "object",
+      "player_position": "object",
+      "player_side": "object",
+      "player_role": "object",
+      "x": "float64",
+      "y": "float64",
+      "s": "float64",
+      "a": "float64",
+      "dir": "float64",
+      "o": "float64",
+      "num_frames_output": "int64",
+      "ball_land_x": "float64",
+      "ball_land_y": "float64",
+      "week": "int64"
+    },
+    "output_dtypes": {
+      "game_id": "int64",
+      "play_id": "int64",
+      "nfl_id": "int64",
+      "frame_id": "int64",
+      "x": "float64",
+      "y": "float64",
+      "week": "int64"
+    }
   },
   "data_quality": {
+    "input_missing_values": {},
+    "output_missing_values": {},
     "unique_counts": {
       "unique_games": 272,
       "unique_plays": 14108,
-      "unique_players": 1384
+      "unique_players": 1384,
+      "total_play_instances": 14108
     }
   },
   "feature_analysis": {
     "x_stats": {
-      "mean": 60.500736488437134,
+      "mean": 60.500736488437155,
       "median": 60.41,
       "std": 23.48919134150353,
       "min": 0.41,
-      "max": 119.86
+      "max": 119.86,
+      "q25": 42.63,
+      "q75": 78.23
     },
     "y_stats": {
-      "mean": 26.811895203417464,
+      "mean": 26.811895203417482,
       "median": 26.85,
       "std": 10.006199161281643,
       "min": 0.62,
-      "max": 52.88
+      "max": 52.88,
+      "q25": 18.99,
+      "q75": 34.62
     },
     "s_stats": {
-      "mean": 3.019878469337347,
+      "mean": 3.0198784693373515,
       "median": 2.72,
-      "std": 2.227938568313041,
+      "std": 2.227938568313042,
       "min": 0.0,
-      "max": 12.53
+      "max": 12.53,
+      "q25": 1.09,
+      "q75": 4.62
     },
     "a_stats": {
-      "mean": 2.1183349680437504,
+      "mean": 2.118334968043749,
       "median": 1.92,
-      "std": 1.4157939116699674,
+      "std": 1.4157939116699676,
       "min": 0.0,
-      "max": 17.12
+      "max": 17.12,
+      "q25": 1.01,
+      "q75": 3.04
     },
     "o_stats": {
-      "mean": 181.53661797708835,
+      "mean": 181.53661797708853,
       "median": 180.14,
-      "std": 98.00912199302392,
+      "std": 98.00912199302397,
       "min": 0.0,
-      "max": 360.0
+      "max": 360.0,
+      "q25": 91.74,
+      "q75": 271.58
     },
     "dir_stats": {
-      "mean": 180.4971854323022,
+      "mean": 180.49718543230216,
       "median": 179.56,
-      "std": 100.71615294468363,
+      "std": 100.71615294468364,
       "min": 0.0,
-      "max": 360.0
+      "max": 360.0,
+      "q25": 90.91,
+      "q75": 270.83
     }
   },
   "play_characteristics": {
@@ -104,25 +154,40 @@
       "mean": 12.273178338531329,
       "median": 13.0,
       "min": 1,
-      "max": 17
+      "max": 17,
+      "std": 1.118459364129797
     },
     "input_frames_per_play": {
       "mean": 28.133966543804934,
       "median": 26.0,
       "min": 8,
-      "max": 123
+      "max": 123,
+      "std": 9.257371648504487
     },
     "output_frames_to_predict": {
       "mean": 11.294236211377418,
       "median": 10.0,
       "min": 5,
-      "max": 94
+      "max": 94,
+      "std": 5.110444461057723
     },
     "ball_time_in_air_seconds": {
-      "mean": 1.129423621137742,
+      "mean": 1.1294236211377418,
       "median": 1.0,
       "min": 0.5,
-      "max": 9.4
+      "max": 9.4,
+      "std": 0.5110444461057723
+    },
+    "play_direction": {
+      "right": 7117,
+      "left": 6991
+    },
+    "absolute_yardline": {
+      "mean": 60.49851148284661,
+      "median": 61.0,
+      "min": 11.0,
+      "max": 109.0,
+      "std": 23.262021398027812
     }
   },
   "player_analysis": {
@@ -159,32 +224,251 @@
     },
     "players_to_predict": {
       "total_to_predict": 1303440,
-      "percentage": 26.706667385160653
+      "total_not_predict": 3577139,
+      "percentage_to_predict": 26.706667385160653
+    },
+    "role_by_side": {
+      "Defense": {
+        "Defensive Coverage": 2662657,
+        "Other Route Runner": 0,
+        "Passer": 0,
+        "Targeted Receiver": 0
+      },
+      "Offense": {
+        "Defensive Coverage": 0,
+        "Other Route Runner": 1424243,
+        "Passer": 396765,
+        "Targeted Receiver": 396914
+      }
+    },
+    "physical_attributes": {
+      "height_stats": {
+        "count": 1384,
+        "unique": 16,
+        "top": "6-1",
+        "freq": 211
+      },
+      "weight_stats": {
+        "count": 1384.0,
+        "mean": 223.8887283236994,
+        "std": 33.223632183657244,
+        "min": 153.0,
+        "25%": 200.0,
+        "50%": 215.0,
+        "75%": 245.0,
+        "max": 358.0
+      }
+    },
+    "age_stats": {
+      "count": 1384.0,
+      "mean": 26.379299157675675,
+      "std": 2.9466406366435294,
+      "min": 20.906228610540726,
+      "25%": 24.243668720054757,
+      "50%": 25.87542778918549,
+      "75%": 28.11978097193703,
+      "max": 39.285420944558524
     }
   },
   "movement_patterns": {
-    "frame_to_frame_displacement": {
-      "mean": 0.4594087697645148,
-      "std": 0.20224447221730152
+    "speed_by_role": {
+      "count": {
+        "Defensive Coverage": 2662657.0,
+        "Other Route Runner": 1424243.0,
+        "Passer": 396765.0,
+        "Targeted Receiver": 396914.0
+      },
+      "mean": {
+        "Defensive Coverage": 2.5391184895388323,
+        "Other Route Runner": 3.9875556418392106,
+        "Passer": 1.8005432434816577,
+        "Targeted Receiver": 3.991577696931829
+      },
+      "std": {
+        "Defensive Coverage": 1.8458431879408705,
+        "Other Route Runner": 2.5054359904243406,
+        "Passer": 1.4958552534425906,
+        "Targeted Receiver": 2.4651036764102554
+      },
+      "min": {
+        "Defensive Coverage": 0.0,
+        "Other Route Runner": 0.0,
+        "Passer": 0.0,
+        "Targeted Receiver": 0.0
+      },
+      "25%": {
+        "Defensive Coverage": 0.97,
+        "Other Route Runner": 1.78,
+        "Passer": 0.65,
+        "Targeted Receiver": 1.87
+      },
+      "50%": {
+        "Defensive Coverage": 2.32,
+        "Other Route Runner": 4.19,
+        "Passer": 1.54,
+        "Targeted Receiver": 4.19
+      },
+      "75%": {
+        "Defensive Coverage": 3.81,
+        "Other Route Runner": 6.09,
+        "Passer": 2.53,
+        "Targeted Receiver": 6.02
+      },
+      "max": {
+        "Defensive Coverage": 12.53,
+        "Other Route Runner": 10.33,
+        "Passer": 8.74,
+        "Targeted Receiver": 10.34
+      }
     },
-    "total_displacement_during_flight": {
-      "mean": 5.838834497738159,
-      "std": 4.7286734411169675
+    "acceleration_by_role": {
+      "count": {
+        "Defensive Coverage": 2662657.0,
+        "Other Route Runner": 1424243.0,
+        "Passer": 396765.0,
+        "Targeted Receiver": 396914.0
+      },
+      "mean": {
+        "Defensive Coverage": 1.804226849346348,
+        "Other Route Runner": 2.598887064917996,
+        "Passer": 1.9270693231509828,
+        "Targeted Receiver": 2.6923301773180084
+      },
+      "std": {
+        "Defensive Coverage": 1.268509955075428,
+        "Other Route Runner": 1.5000349004506592,
+        "Passer": 1.2666773966999687,
+        "Targeted Receiver": 1.5226864280561208
+      },
+      "min": {
+        "Defensive Coverage": 0.0,
+        "Other Route Runner": 0.0,
+        "Passer": 0.0,
+        "Targeted Receiver": 0.0
+      },
+      "25%": {
+        "Defensive Coverage": 0.83,
+        "Other Route Runner": 1.44,
+        "Passer": 0.97,
+        "Targeted Receiver": 1.53
+      },
+      "50%": {
+        "Defensive Coverage": 1.6,
+        "Other Route Runner": 2.54,
+        "Passer": 1.82,
+        "Targeted Receiver": 2.65
+      },
+      "75%": {
+        "Defensive Coverage": 2.55,
+        "Other Route Runner": 3.67,
+        "Passer": 2.73,
+        "Targeted Receiver": 3.78
+      },
+      "max": {
+        "Defensive Coverage": 15.68,
+        "Other Route Runner": 17.12,
+        "Passer": 16.02,
+        "Targeted Receiver": 16.75
+      }
+    },
+    "input_to_output_transition": {
+      "dx_mean": 0.0020021717884678015,
+      "dx_std": 0.3430328724111747,
+      "dy_mean": -0.004294928873927672,
+      "dy_std": 0.3664284663194704,
+      "displacement_mean": 0.4594087697645148,
+      "displacement_std": 0.20224447221730152
+    },
+    "total_output_movement": {
+      "total_dx_mean": 0.03631599522206537,
+      "total_dx_std": 5.5535506869030495,
+      "total_dy_mean": -0.0683698555760669,
+      "total_dy_std": 5.060154402370208,
+      "total_displacement_mean": 5.838834497738159,
+      "total_displacement_std": 4.7286734411169675
     }
   },
   "ball_trajectory": {
     "ball_land_x": {
       "mean": 60.47503542132635,
-      "std": 25.283144033480678
+      "median": 60.4900016784668,
+      "std": 25.283144033480678,
+      "min": -5.26000022888184,
+      "max": 125.849998474121
     },
     "ball_land_y": {
       "mean": 26.635479161584882,
-      "std": 15.259019896298943
+      "median": 26.4799995422363,
+      "std": 15.259019896298943,
+      "min": -3.91000008583069,
+      "max": 57.3300018310547
     },
     "pass_distance": {
-      "mean": 9.051926553133173,
+      "mean": 9.051926553133175,
       "median": 5.589996337890597,
+      "std": 9.131363247245753,
+      "min": 0.0,
       "max": 62.290000915527
+    },
+    "distance_to_ball_stats": {
+      "count": 173150.0,
+      "mean": 18.992940932217675,
+      "std": 10.579339837753704,
+      "min": 0.05098956671841463,
+      "25%": 10.872784952643102,
+      "50%": 17.377908429448162,
+      "75%": 25.58526992580591,
+      "max": 71.19643696349951
+    },
+    "distance_by_role": {
+      "count": {
+        "Defensive Coverage": 2662657.0,
+        "Other Route Runner": 1424243.0,
+        "Passer": 396765.0,
+        "Targeted Receiver": 396914.0
+      },
+      "mean": {
+        "Defensive Coverage": 18.886018425392948,
+        "Other Route Runner": 21.46257048747178,
+        "Passer": 22.029877851728784,
+        "Targeted Receiver": 13.064076246563872
+      },
+      "std": {
+        "Defensive Coverage": 10.238919601918784,
+        "Other Route Runner": 11.438038497893508,
+        "Passer": 10.518126876318819,
+        "Targeted Receiver": 8.79763656486124
+      },
+      "min": {
+        "Defensive Coverage": 0.01000167849589895,
+        "Other Route Runner": 0.03605288891243799,
+        "Passer": 0.24020767129676504,
+        "Targeted Receiver": 0.019999084475029568
+      },
+      "25%": {
+        "Defensive Coverage": 10.913042659380276,
+        "Other Route Runner": 12.714491136503273,
+        "Passer": 14.206282561963576,
+        "Targeted Receiver": 6.778008081276285
+      },
+      "50%": {
+        "Defensive Coverage": 17.43290179471367,
+        "Other Route Runner": 20.158879828743416,
+        "Passer": 19.765554721574123,
+        "Targeted Receiver": 10.94102772308573
+      },
+      "75%": {
+        "Defensive Coverage": 25.58985302300416,
+        "Other Route Runner": 28.902903750219615,
+        "Passer": 27.52805147158599,
+        "Targeted Receiver": 17.12458866944088
+      },
+      "max": {
+        "Defensive Coverage": 66.88811350282104,
+        "Other Route Runner": 71.71308623988563,
+        "Passer": 73.07823094879001,
+        "Targeted Receiver": 67.15821490729836
+      }
     }
   },
   "correlations": {
@@ -196,6 +480,7 @@
         "a": -0.0021955270951371695,
         "o": 0.13505507610249726,
         "dir": -0.06883127727495068,
+        "absolute_yardline_number": 0.9375443451635339,
         "num_frames_output": -0.010060639991890894,
         "ball_land_x": 0.8589441806137809,
         "ball_land_y": -0.007023591067530855
@@ -207,6 +492,7 @@
         "a": -0.005223937578472089,
         "o": 0.010706987649469552,
         "dir": -0.005682989941606424,
+        "absolute_yardline_number": -0.007872352437183166,
         "num_frames_output": 0.005231705921891478,
         "ball_land_x": -0.0033837123843750987,
         "ball_land_y": 0.05423475990296519
@@ -218,6 +504,7 @@
         "a": 0.20988126547562994,
         "o": -0.013791204468554911,
         "dir": 0.005139881890452738,
+        "absolute_yardline_number": 0.0019882472995707318,
         "num_frames_output": 0.051017401940688815,
         "ball_land_x": -0.0023768595444496952,
         "ball_land_y": -0.005773217327291303
@@ -229,6 +516,7 @@
         "a": 1.0,
         "o": -0.008320331227039008,
         "dir": -0.0036569320780779515,
+        "absolute_yardline_number": -0.00130976162063067,
         "num_frames_output": 0.011784631926627771,
         "ball_land_x": -0.003205119826203799,
         "ball_land_y": -0.0008476983935239251
@@ -240,6 +528,7 @@
         "a": -0.008320331227039008,
         "o": 1.0,
         "dir": -0.02032842205930221,
+        "absolute_yardline_number": -0.001152861327803102,
         "num_frames_output": -0.002397660683462747,
         "ball_land_x": 0.029496565620157695,
         "ball_land_y": -0.02038698274135385
@@ -251,9 +540,22 @@
         "a": -0.0036569320780779515,
         "o": -0.02032842205930221,
         "dir": 1.0,
+        "absolute_yardline_number": 0.09197771993978117,
         "num_frames_output": 0.0042797008019886465,
         "ball_land_x": -0.10152132533077474,
         "ball_land_y": 0.020329571281519156
+      },
+      "absolute_yardline_number": {
+        "x": 0.9375443451635339,
+        "y": -0.007872352437183166,
+        "s": 0.0019882472995707318,
+        "a": -0.00130976162063067,
+        "o": -0.001152861327803102,
+        "dir": 0.09197771993978117,
+        "absolute_yardline_number": 1.0,
+        "num_frames_output": -0.011513343819691536,
+        "ball_land_x": 0.8398384633218946,
+        "ball_land_y": 0.00104235714430536
       },
       "num_frames_output": {
         "x": -0.010060639991890894,
@@ -262,6 +564,7 @@
         "a": 0.011784631926627771,
         "o": -0.002397660683462747,
         "dir": 0.0042797008019886465,
+        "absolute_yardline_number": -0.011513343819691536,
         "num_frames_output": 1.0,
         "ball_land_x": -0.01887758783637331,
         "ball_land_y": 0.0008256786615631333
@@ -273,6 +576,7 @@
         "a": -0.003205119826203799,
         "o": 0.029496565620157695,
         "dir": -0.10152132533077474,
+        "absolute_yardline_number": 0.8398384633218946,
         "num_frames_output": -0.01887758783637331,
         "ball_land_x": 1.0,
         "ball_land_y": -0.0021165105732157624
@@ -284,9 +588,114 @@
         "a": -0.0008476983935239251,
         "o": -0.02038698274135385,
         "dir": 0.020329571281519156,
+        "absolute_yardline_number": 0.00104235714430536,
         "num_frames_output": 0.0008256786615631333,
         "ball_land_x": -0.0021165105732157624,
         "ball_land_y": 1.0
+      }
+    }
+  },
+  "temporal_patterns": {
+    "weekly_stats": {
+      "num_games": {
+        "1": 16,
+        "2": 16,
+        "3": 16,
+        "4": 16,
+        "5": 14,
+        "6": 15,
+        "7": 13,
+        "8": 16,
+        "9": 14,
+        "10": 14,
+        "11": 14,
+        "12": 16,
+        "13": 13,
+        "14": 15,
+        "15": 16,
+        "16": 16,
+        "17": 16,
+        "18": 16
+      },
+      "num_plays": {
+        "1": 748,
+        "2": 777,
+        "3": 823,
+        "4": 710,
+        "5": 677,
+        "6": 715,
+        "7": 646,
+        "8": 765,
+        "9": 656,
+        "10": 673,
+        "11": 657,
+        "12": 755,
+        "13": 622,
+        "14": 738,
+        "15": 702,
+        "16": 822,
+        "17": 734,
+        "18": 686
+      },
+      "s": {
+        "1": 3.041965601965602,
+        "2": 2.9315891276777113,
+        "3": 2.964380115328943,
+        "4": 3.0263893201211123,
+        "5": 2.9918515262246888,
+        "6": 2.9989979902170862,
+        "7": 2.969079568658844,
+        "8": 3.0211636555152643,
+        "9": 3.0617916818304085,
+        "10": 3.058636988616288,
+        "11": 3.0309710245549746,
+        "12": 3.048638740082729,
+        "13": 3.0752182413210414,
+        "14": 3.0482827925649705,
+        "15": 3.0588449719679227,
+        "16": 3.0416600245878063,
+        "17": 3.0141596357112492,
+        "18": 2.977405900744164
+      },
+      "a": {
+        "1": 2.126248626248626,
+        "2": 2.1028540885559246,
+        "3": 2.112009423791884,
+        "4": 2.1175457197908067,
+        "5": 2.0992858516596735,
+        "6": 2.120897678405178,
+        "7": 2.0995860820130394,
+        "8": 2.117435580813562,
+        "9": 2.1355187186506113,
+        "10": 2.13503928993901,
+        "11": 2.1100139680296452,
+        "12": 2.1283898420017633,
+        "13": 2.1214526320292615,
+        "14": 2.128871887188719,
+        "15": 2.1205898090980058,
+        "16": 2.1179451799366027,
+        "17": 2.119304421756454,
+        "18": 2.11442630346348
+      },
+      "num_frames_output": {
+        "1": 11.2986692986693,
+        "2": 11.227658306362748,
+        "3": 11.806211105028597,
+        "4": 11.411468942104781,
+        "5": 11.392814949426757,
+        "6": 11.318421285965508,
+        "7": 11.385103404581395,
+        "8": 11.76923323286277,
+        "9": 11.72493235652463,
+        "10": 11.703915935661284,
+        "11": 11.54868063743514,
+        "12": 11.28910286838001,
+        "13": 12.47780796132703,
+        "14": 11.912666266626662,
+        "15": 12.025824994677453,
+        "16": 11.820654389618763,
+        "17": 11.823277445943901,
+        "18": 11.672869992978107
       }
     }
   },
@@ -301,10 +710,16 @@
     },
     "key_statistics": {
       "avg_players_per_play": 12.273178338531329,
+      "avg_input_frames": 28.133966543804934,
       "avg_output_frames": 11.294236211377418,
-      "avg_ball_time_in_air_sec": 1.129423621137742,
-      "avg_speed_yards_per_sec": 3.019878469337347,
-      "avg_pass_distance_yards": 9.051926553133173,
+      "avg_ball_time_in_air_sec": 1.1294236211377418,
+      "avg_speed_yards_per_sec": 3.0198784693373515,
+      "avg_acceleration": 2.118334968043749,
+      "avg_pass_distance_yards": 9.051926553133175
+    },
+    "prediction_task": {
+      "records_to_predict": 1303440,
+      "avg_frames_to_predict_per_player": 11.294236211377418,
       "avg_displacement_per_frame": 0.4594087697645148,
       "avg_total_displacement": 5.838834497738159
     }
