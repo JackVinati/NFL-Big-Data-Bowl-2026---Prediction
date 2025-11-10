@@ -211,6 +211,18 @@ class NFLDataset(Dataset):
         for player_id in players:
             player_input = play_input[play_input['nfl_id'] == player_id].sort_values('frame_id')
 
+            # Get target if not test (check this first to filter players)
+            if not self.is_test and self.output_df is not None:
+                player_output = self.output_df[
+                    (self.output_df['game_id'] == game_id) &
+                    (self.output_df['play_id'] == play_id) &
+                    (self.output_df['nfl_id'] == player_id)
+                ].sort_values('frame_id')
+
+                # Skip players without output data
+                if len(player_output) == 0:
+                    continue
+
             # Take last sequence_length frames (or all if fewer)
             if len(player_input) >= self.sequence_length:
                 player_seq = player_input.iloc[-self.sequence_length:]
@@ -224,32 +236,26 @@ class NFLDataset(Dataset):
             # Get features
             features = player_seq[feature_cols].values
             input_sequences.append(features)
+            player_ids.append(player_id)
 
-            # Get target if not test
+            # Add target if not test
             if not self.is_test and self.output_df is not None:
-                player_output = self.output_df[
-                    (self.output_df['game_id'] == game_id) &
-                    (self.output_df['play_id'] == play_id) &
-                    (self.output_df['nfl_id'] == player_id)
-                ].sort_values('frame_id')
-
-                if len(player_output) > 0:
-                    # Target is future positions (x, y)
-                    target = player_output[['x', 'y']].values
-                    target_sequences.append(target)
-                    player_ids.append(player_id)
-                    num_output_frames_list.append(len(player_output))
+                # Target is future positions (x, y)
+                target = player_output[['x', 'y']].values
+                target_sequences.append(target)
+                num_output_frames_list.append(len(player_output))
 
         # Convert to tensors
-        input_tensor = torch.FloatTensor(np.array(input_sequences))  # [num_players, seq_len, features]
+        input_tensor = torch.FloatTensor(np.array(input_sequences))  # [num_players_with_data, seq_len, features]
+        num_players_actual = len(input_sequences)
 
         if self.is_test or self.output_df is None:
             return {
                 'input': input_tensor,
                 'game_id': game_id,
                 'play_id': play_id,
-                'player_ids': np.array(player_ids) if player_ids else np.array(players),
-                'num_players': len(players)
+                'player_ids': np.array(player_ids),
+                'num_players': num_players_actual
             }
         else:
             # Pad targets to same length (max frames in this play)
@@ -274,8 +280,9 @@ class NFLDataset(Dataset):
                 target_tensor = torch.FloatTensor(np.array(padded_targets))  # [num_players, max_frames, 2]
                 mask_tensor = torch.FloatTensor(np.array(masks))  # [num_players, max_frames]
             else:
-                target_tensor = torch.zeros(len(players), 1, 2)
-                mask_tensor = torch.zeros(len(players), 1)
+                # No players with output in this play
+                target_tensor = torch.zeros(0, 1, 2)
+                mask_tensor = torch.zeros(0, 1)
 
             return {
                 'input': input_tensor,
@@ -284,7 +291,7 @@ class NFLDataset(Dataset):
                 'game_id': game_id,
                 'play_id': play_id,
                 'player_ids': np.array(player_ids),
-                'num_players': len(player_ids),
+                'num_players': num_players_actual,
                 'num_output_frames': np.array(num_output_frames_list)
             }
 
