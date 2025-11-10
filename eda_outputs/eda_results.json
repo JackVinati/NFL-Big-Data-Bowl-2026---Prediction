@@ -1,0 +1,312 @@
+{
+  "metadata": {
+    "analysis_date": "2025-11-10 15:16:52.410917",
+    "total_weeks": 18
+  },
+  "data_structure": {
+    "input_shape": [
+      4880579,
+      24
+    ],
+    "output_shape": [
+      562936,
+      7
+    ],
+    "input_columns": [
+      "game_id",
+      "play_id",
+      "player_to_predict",
+      "nfl_id",
+      "frame_id",
+      "play_direction",
+      "absolute_yardline_number",
+      "player_name",
+      "player_height",
+      "player_weight",
+      "player_birth_date",
+      "player_position",
+      "player_side",
+      "player_role",
+      "x",
+      "y",
+      "s",
+      "a",
+      "dir",
+      "o",
+      "num_frames_output",
+      "ball_land_x",
+      "ball_land_y",
+      "week"
+    ],
+    "output_columns": [
+      "game_id",
+      "play_id",
+      "nfl_id",
+      "frame_id",
+      "x",
+      "y",
+      "week"
+    ]
+  },
+  "data_quality": {
+    "unique_counts": {
+      "unique_games": 272,
+      "unique_plays": 14108,
+      "unique_players": 1384
+    }
+  },
+  "feature_analysis": {
+    "x_stats": {
+      "mean": 60.500736488437134,
+      "median": 60.41,
+      "std": 23.48919134150353,
+      "min": 0.41,
+      "max": 119.86
+    },
+    "y_stats": {
+      "mean": 26.811895203417464,
+      "median": 26.85,
+      "std": 10.006199161281643,
+      "min": 0.62,
+      "max": 52.88
+    },
+    "s_stats": {
+      "mean": 3.019878469337347,
+      "median": 2.72,
+      "std": 2.227938568313041,
+      "min": 0.0,
+      "max": 12.53
+    },
+    "a_stats": {
+      "mean": 2.1183349680437504,
+      "median": 1.92,
+      "std": 1.4157939116699674,
+      "min": 0.0,
+      "max": 17.12
+    },
+    "o_stats": {
+      "mean": 181.53661797708835,
+      "median": 180.14,
+      "std": 98.00912199302392,
+      "min": 0.0,
+      "max": 360.0
+    },
+    "dir_stats": {
+      "mean": 180.4971854323022,
+      "median": 179.56,
+      "std": 100.71615294468363,
+      "min": 0.0,
+      "max": 360.0
+    }
+  },
+  "play_characteristics": {
+    "players_per_play": {
+      "mean": 12.273178338531329,
+      "median": 13.0,
+      "min": 1,
+      "max": 17
+    },
+    "input_frames_per_play": {
+      "mean": 28.133966543804934,
+      "median": 26.0,
+      "min": 8,
+      "max": 123
+    },
+    "output_frames_to_predict": {
+      "mean": 11.294236211377418,
+      "median": 10.0,
+      "min": 5,
+      "max": 94
+    },
+    "ball_time_in_air_seconds": {
+      "mean": 1.129423621137742,
+      "median": 1.0,
+      "min": 0.5,
+      "max": 9.4
+    }
+  },
+  "player_analysis": {
+    "position_distribution": {
+      "WR": 1063660,
+      "CB": 1056888,
+      "FS": 476865,
+      "TE": 417146,
+      "QB": 401007,
+      "SS": 392421,
+      "RB": 314918,
+      "ILB": 295593,
+      "OLB": 207429,
+      "MLB": 199983,
+      "FB": 19584,
+      "DE": 16932,
+      "S": 13764,
+      "DT": 3139,
+      "NT": 1090,
+      "T": 83,
+      "LB": 31,
+      "P": 23,
+      "K": 23
+    },
+    "side_distribution": {
+      "Defense": 2662657,
+      "Offense": 2217922
+    },
+    "role_distribution": {
+      "Defensive Coverage": 2662657,
+      "Other Route Runner": 1424243,
+      "Targeted Receiver": 396914,
+      "Passer": 396765
+    },
+    "players_to_predict": {
+      "total_to_predict": 1303440,
+      "percentage": 26.706667385160653
+    }
+  },
+  "movement_patterns": {
+    "frame_to_frame_displacement": {
+      "mean": 0.4594087697645148,
+      "std": 0.20224447221730152
+    },
+    "total_displacement_during_flight": {
+      "mean": 5.838834497738159,
+      "std": 4.7286734411169675
+    }
+  },
+  "ball_trajectory": {
+    "ball_land_x": {
+      "mean": 60.47503542132635,
+      "std": 25.283144033480678
+    },
+    "ball_land_y": {
+      "mean": 26.635479161584882,
+      "std": 15.259019896298943
+    },
+    "pass_distance": {
+      "mean": 9.051926553133173,
+      "median": 5.589996337890597,
+      "max": 62.290000915527
+    }
+  },
+  "correlations": {
+    "feature_correlation_matrix": {
+      "x": {
+        "x": 1.0,
+        "y": -0.008659398958268545,
+        "s": 0.0005666787964873513,
+        "a": -0.0021955270951371695,
+        "o": 0.13505507610249726,
+        "dir": -0.06883127727495068,
+        "num_frames_output": -0.010060639991890894,
+        "ball_land_x": 0.8589441806137809,
+        "ball_land_y": -0.007023591067530855
+      },
+      "y": {
+        "x": -0.008659398958268545,
+        "y": 1.0,
+        "s": -0.0005024198893742779,
+        "a": -0.005223937578472089,
+        "o": 0.010706987649469552,
+        "dir": -0.005682989941606424,
+        "num_frames_output": 0.005231705921891478,
+        "ball_land_x": -0.0033837123843750987,
+        "ball_land_y": 0.05423475990296519
+      },
+      "s": {
+        "x": 0.0005666787964873513,
+        "y": -0.0005024198893742779,
+        "s": 1.0,
+        "a": 0.20988126547562994,
+        "o": -0.013791204468554911,
+        "dir": 0.005139881890452738,
+        "num_frames_output": 0.051017401940688815,
+        "ball_land_x": -0.0023768595444496952,
+        "ball_land_y": -0.005773217327291303
+      },
+      "a": {
+        "x": -0.0021955270951371695,
+        "y": -0.005223937578472089,
+        "s": 0.20988126547562994,
+        "a": 1.0,
+        "o": -0.008320331227039008,
+        "dir": -0.0036569320780779515,
+        "num_frames_output": 0.011784631926627771,
+        "ball_land_x": -0.003205119826203799,
+        "ball_land_y": -0.0008476983935239251
+      },
+      "o": {
+        "x": 0.13505507610249726,
+        "y": 0.010706987649469552,
+        "s": -0.013791204468554911,
+        "a": -0.008320331227039008,
+        "o": 1.0,
+        "dir": -0.02032842205930221,
+        "num_frames_output": -0.002397660683462747,
+        "ball_land_x": 0.029496565620157695,
+        "ball_land_y": -0.02038698274135385
+      },
+      "dir": {
+        "x": -0.06883127727495068,
+        "y": -0.005682989941606424,
+        "s": 0.005139881890452738,
+        "a": -0.0036569320780779515,
+        "o": -0.02032842205930221,
+        "dir": 1.0,
+        "num_frames_output": 0.0042797008019886465,
+        "ball_land_x": -0.10152132533077474,
+        "ball_land_y": 0.020329571281519156
+      },
+      "num_frames_output": {
+        "x": -0.010060639991890894,
+        "y": 0.005231705921891478,
+        "s": 0.051017401940688815,
+        "a": 0.011784631926627771,
+        "o": -0.002397660683462747,
+        "dir": 0.0042797008019886465,
+        "num_frames_output": 1.0,
+        "ball_land_x": -0.01887758783637331,
+        "ball_land_y": 0.0008256786615631333
+      },
+      "ball_land_x": {
+        "x": 0.8589441806137809,
+        "y": -0.0033837123843750987,
+        "s": -0.0023768595444496952,
+        "a": -0.003205119826203799,
+        "o": 0.029496565620157695,
+        "dir": -0.10152132533077474,
+        "num_frames_output": -0.01887758783637331,
+        "ball_land_x": 1.0,
+        "ball_land_y": -0.0021165105732157624
+      },
+      "ball_land_y": {
+        "x": -0.007023591067530855,
+        "y": 0.05423475990296519,
+        "s": -0.005773217327291303,
+        "a": -0.0008476983935239251,
+        "o": -0.02038698274135385,
+        "dir": 0.020329571281519156,
+        "num_frames_output": 0.0008256786615631333,
+        "ball_land_x": -0.0021165105732157624,
+        "ball_land_y": 1.0
+      }
+    }
+  },
+  "summary": {
+    "dataset_overview": {
+      "total_input_records": 4880579,
+      "total_output_records": 562936,
+      "unique_games": 272,
+      "unique_plays": 14108,
+      "unique_players": 1384,
+      "weeks_covered": 18
+    },
+    "key_statistics": {
+      "avg_players_per_play": 12.273178338531329,
+      "avg_output_frames": 11.294236211377418,
+      "avg_ball_time_in_air_sec": 1.129423621137742,
+      "avg_speed_yards_per_sec": 3.019878469337347,
+      "avg_pass_distance_yards": 9.051926553133173,
+      "avg_displacement_per_frame": 0.4594087697645148,
+      "avg_total_displacement": 5.838834497738159
+    }
+  }
+}
