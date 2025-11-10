@@ -16,7 +16,7 @@ import json
 
 import config
 from models import create_model
-from data_preprocessing import load_and_preprocess_data
+from data_preprocessing import load_and_preprocess_data, custom_collate_fn
 
 
 # ============================================================================
@@ -379,13 +379,14 @@ def train_all_models():
     print("Loading and preprocessing data...")
     train_dataset, val_dataset, feat_eng = load_and_preprocess_data()
 
-    # Create data loaders for each model
+    # Create data loaders for each model (with custom collate function)
     physics_train_loader = DataLoader(
         train_dataset,
         batch_size=64,
         shuffle=True,
         num_workers=config.NUM_WORKERS,
-        pin_memory=config.PIN_MEMORY
+        pin_memory=config.PIN_MEMORY,
+        collate_fn=custom_collate_fn
     )
 
     physics_val_loader = DataLoader(
@@ -393,7 +394,8 @@ def train_all_models():
         batch_size=64,
         shuffle=False,
         num_workers=config.NUM_WORKERS,
-        pin_memory=config.PIN_MEMORY
+        pin_memory=config.PIN_MEMORY,
+        collate_fn=custom_collate_fn
     )
 
     lstm_train_loader = DataLoader(
@@ -401,7 +403,8 @@ def train_all_models():
         batch_size=config.LSTM_CONFIG['batch_size'],
         shuffle=True,
         num_workers=config.NUM_WORKERS,
-        pin_memory=config.PIN_MEMORY
+        pin_memory=config.PIN_MEMORY,
+        collate_fn=custom_collate_fn
     )
 
     lstm_val_loader = DataLoader(
@@ -409,7 +412,8 @@ def train_all_models():
         batch_size=config.LSTM_CONFIG['batch_size'],
         shuffle=False,
         num_workers=config.NUM_WORKERS,
-        pin_memory=config.PIN_MEMORY
+        pin_memory=config.PIN_MEMORY,
+        collate_fn=custom_collate_fn
     )
 
     transformer_train_loader = DataLoader(
@@ -417,7 +421,8 @@ def train_all_models():
         batch_size=config.TRANSFORMER_CONFIG['batch_size'],
         shuffle=True,
         num_workers=config.NUM_WORKERS,
-        pin_memory=config.PIN_MEMORY
+        pin_memory=config.PIN_MEMORY,
+        collate_fn=custom_collate_fn
     )
 
     transformer_val_loader = DataLoader(
@@ -425,7 +430,8 @@ def train_all_models():
         batch_size=config.TRANSFORMER_CONFIG['batch_size'],
         shuffle=False,
         num_workers=config.NUM_WORKERS,
-        pin_memory=config.PIN_MEMORY
+        pin_memory=config.PIN_MEMORY,
+        collate_fn=custom_collate_fn
     )
 
     # Create models

@@ -289,6 +289,70 @@ class NFLDataset(Dataset):
             }
 
 
+def custom_collate_fn(batch):
+    """
+    Custom collate function to handle variable number of players per play
+    Pads to maximum number of players in the batch
+    """
+    # Find max number of players in this batch
+    max_players = max(item['num_players'] for item in batch)
+
+    batch_size = len(batch)
+    seq_len = batch[0]['input'].shape[1]
+    num_features = batch[0]['input'].shape[2]
+
+    # Initialize padded tensors
+    padded_inputs = torch.zeros(batch_size, max_players, seq_len, num_features)
+
+    game_ids = []
+    play_ids = []
+    player_ids_list = []
+    num_players_list = []
+
+    # Handle targets if present
+    has_targets = 'target' in batch[0]
+
+    if has_targets:
+        max_frames = max(item['target'].shape[1] for item in batch)
+        padded_targets = torch.zeros(batch_size, max_players, max_frames, 2)
+        padded_masks = torch.zeros(batch_size, max_players, max_frames)
+        num_output_frames_list = []
+
+    # Pad each item
+    for i, item in enumerate(batch):
+        num_players = item['num_players']
+
+        # Pad input
+        padded_inputs[i, :num_players] = item['input']
+
+        # Store metadata
+        game_ids.append(item['game_id'])
+        play_ids.append(item['play_id'])
+        player_ids_list.append(item['player_ids'])
+        num_players_list.append(num_players)
+
+        if has_targets:
+            num_frames = item['target'].shape[1]
+            padded_targets[i, :num_players, :num_frames] = item['target']
+            padded_masks[i, :num_players, :num_frames] = item['mask']
+            num_output_frames_list.append(item['num_output_frames'])
+
+    result = {
+        'input': padded_inputs,
+        'game_id': game_ids,
+        'play_id': play_ids,
+        'player_ids': player_ids_list,
+        'num_players': num_players_list,
+    }
+
+    if has_targets:
+        result['target'] = padded_targets
+        result['mask'] = padded_masks
+        result['num_output_frames'] = num_output_frames_list
+
+    return result
+
+
 def load_and_preprocess_data(train_weeks: List[int] = None,
                              val_weeks: List[int] = None) -> Tuple[NFLDataset, NFLDataset]:
     """
